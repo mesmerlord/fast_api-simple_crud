@@ -8,6 +8,7 @@ import crud
 import models
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from auth import Auth
+import uvicorn
 
 
 auth_handler = Auth()
@@ -127,3 +128,7 @@ def update_car(
     if not car:
         raise HTTPException(status_code=404, detail="No Car with given ID")
     return car
+
+
+if __name__ == "__main__":
+  uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

@@ -11,6 +11,7 @@ sqlalchemy = "*"
 asyncpg = "*"
 pyjwt = "*"
 python-dotenv = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.9"

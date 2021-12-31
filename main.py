@@ -32,7 +32,7 @@ app = FastAPI(
     openapi_url="/api/v1/openapi.json",
 )
 
-@app.post("/")
+@app.get("/")
 async def homepage():
     return {"message": "Hi there, visit https://fast-api-simple-crud.vercel.app/api/v1/docs for details"}
 

@@ -15,15 +15,10 @@ auth_handler = Auth()
 security = HTTPBearer()
 
 def get_db():
-    print("getting db")
     db = SessionLocal()
-    print("finished getting db")
-
     try:
         yield db
     finally:
-        print("closing db")
-
         db.close()
 
 models.Base.metadata.create_all(bind=engine)
@@ -37,10 +32,12 @@ app = FastAPI(
     openapi_url="/api/v1/openapi.json",
 )
 
+@app.post("/")
+async def homepage():
+    return {"message": "Hi there, visit https://fast-api-simple-crud.vercel.app/api/v1/docs for details"}
+
 @app.post("/signup", response_model=user.UserCreated)
 async def register_user(user_details: user.UserSignup , db: Session = Depends(get_db)):
-    print("signing up db")
-    
     db_user = crud.get_user_by_username(db = db, username = user_details.username)
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
@@ -131,4 +128,4 @@ def update_car(
 
 
 if __name__ == "__main__":
-  uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+  uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

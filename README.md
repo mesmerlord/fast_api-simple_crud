@@ -1,3 +1,11 @@
+# About
+
+An example FastAPI app deployed to Vercel. You can use any remote db service,
+I'd advise using https://www.yugabyte.com/cloud/ . At the time this repo was written,
+you can create a free cluster with a 10 GB database for free.
+
+Database used is PostgreSQL.
+
 ## Installation
 
 1. First install pipenv

@@ -14,10 +14,15 @@ auth_handler = Auth()
 security = HTTPBearer()
 
 def get_db():
+    print("getting db")
     db = SessionLocal()
+    print("finished getting db")
+
     try:
         yield db
     finally:
+        print("closing db")
+
         db.close()
 
 models.Base.metadata.create_all(bind=engine)
@@ -33,6 +38,8 @@ app = FastAPI(
 
 @app.post("/signup", response_model=user.UserCreated)
 async def register_user(user_details: user.UserSignup , db: Session = Depends(get_db)):
+    print("signing up db")
+    
     db_user = crud.get_user_by_username(db = db, username = user_details.username)
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
